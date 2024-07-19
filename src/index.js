@@ -496,6 +496,35 @@ const textFillAnimation = function () {
 	);
 };
 
+const careerPopup = function () {
+	const popup = document.querySelector(".popup");
+	if (!popup) return;
+
+	const closeBtn = document.querySelector(".popup_close-btn");
+	const overlay = document.querySelector(".popup_overlay");
+
+	const popupDelay = 6000;
+
+	const showPopup = function () {
+		lenis.stop();
+		popup.classList.add("show");
+	};
+
+	const hidePopup = function () {
+		lenis.start();
+		popup.classList.remove("show");
+	};
+
+	setTimeout(showPopup, popupDelay);
+	closeBtn.addEventListener("click", hidePopup);
+	popup.addEventListener("click", (e) => {
+		const clickedEl = e.target;
+		if (!clickedEl.closest(".popup_wrap")) {
+			hidePopup();
+		}
+	});
+};
+
 // Initialize all animations when DOM is loaded
 function initAnimations() {
 	gsap.registerPlugin(ScrollTrigger);
@@ -510,6 +539,7 @@ function initAnimations() {
 	menuAnimation();
 	teamAnchorScroll();
 	textFillAnimation();
+	careerPopup();
 }
 
 document.addEventListener("DOMContentLoaded", initAnimations);
